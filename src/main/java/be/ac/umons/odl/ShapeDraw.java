@@ -32,11 +32,24 @@ public class ShapeDraw {
 				messageZone.setText(messageZone.getText() + "\nMouse released: (" + e.getX() + ", " + e.getY() + ")");
 				Point end = new Point(e.getX(), e.getY());
 				if (rectBtn.isSelected()) {
-					((DrawingPanel) drawingArea).addDrawable(new Rectangle(start, end));
+					Rectangle rect = new Rectangle(start,end);
+					((DrawingPanel) drawingArea).addDrawable(rect);
+					messageZone.setText("Rectangle drawned"+" Perimeter = "+rect.perimeter()+" Area = "+rect.area());
 				} else if (squareBtn.isSelected()) {
-					((DrawingPanel) drawingArea).addDrawable(new Square(start, Math.min(end.getX() - start.getX(), end.getY() - start.getY())));
+					Square squa = new Square(new Point (Math.min(start.getX(),end.getX()),Math.min(start.getY(),end.getY())), Math.min(Math.abs(end.getX() - start.getX()), Math.abs(end.getY() - start.getY())));
+					((DrawingPanel) drawingArea).addDrawable(squa);
+					messageZone.setText("Ellipsis drawned"+" Perimeter = "+squa.perimeter()+" Area = "+squa.area());
+				} else if (ellipsisBtn.isSelected()) {
+					Ellipsis ell = new Ellipsis(new Point((start.getX()+end.getX())/2,(start.getY()+end.getY())/2),Math.abs(start.getX()-end.getX())/2,Math.abs(start.getY()-end.getY())/2);
+					((DrawingPanel) drawingArea).addDrawable(ell);
+					messageZone.setText("Ellipsis drawned"+" Perimeter = "+ell.perimeter()+" Area = "+ell.area());
+				} else if (circleBtn.isSelected()) {
+					Circle circ = new Circle(new Point((start.getX()+end.getX())/2,(start.getY()+end.getY())/2),Math.min(Math.abs(start.getX()-end.getX())/2,Math.abs(start.getY()-end.getY())/2));
+					((DrawingPanel) drawingArea).addDrawable(circ);
+					messageZone.setText("Ellipsis drawned"+" Perimeter = "+circ.perimeter()+" Area = "+circ.area());
 				}
 				drawingArea.repaint();
+
 			}
 		});
 	}
